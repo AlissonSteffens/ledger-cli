@@ -26,6 +26,11 @@ function getMonthSummary(
     monthSummary.children = expenseByMonth(data, month, year);
   } else if (type === TransactionType.INCOME) {
     monthSummary.children = incomeByMonth(data, month, year);
+  } else if (type === TransactionType.TRANSFER) {
+    monthSummary.children = [
+      ...incomeByMonth(data, month, year),
+      ...expenseByMonth(data, month, year),
+    ];
   }
   if (monthSummary.children) {
     monthSummary.balance = monthSummary.children.reduce(

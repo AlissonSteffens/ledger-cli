@@ -30,7 +30,7 @@ export function getIncomingAccGroupedByAsset(
   let assetsAcc: { [key: string]: number } = {};
   const assets = groupItemsByAsset(data, TransactionType.INCOME);
   for (const asset in assets) {
-    const balance = assets[asset].reduce((acc, item) => acc + item.amount, 0);
+    const balance = assets[asset].reduce((acc, item) => acc + Number(item.amount), 0);
     assetsAcc[asset] = balance;
   }
   return getHierarchyAssetsSummary(assetsAcc);
@@ -86,7 +86,7 @@ export function getExpenseAccGroupedByAsset(data: Transaction[]): SummaryDTO[] {
   const assets = groupItemsByAsset(data, TransactionType.EXPENSE);
   for (const asset in assets) {
     const balance: number = assets[asset].reduce(
-      (acc, item) => acc + Number(item.amount),
+      (acc, item) => acc - Number(item.amount),
       0
     );
     assetsAcc[asset] = balance;
