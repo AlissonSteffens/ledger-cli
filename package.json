@@ -16,6 +16,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "commander": "^11.1.0",
     "yaml": "^2.3.3"
   }
 }

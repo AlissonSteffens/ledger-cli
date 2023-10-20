@@ -2,45 +2,52 @@ import { getLedgerFileAsJson } from "./io/file_reader";
 import getObjectAsJsonString from "./io/object_as_json_string";
 import getHistory from "./services/history";
 import { getSummary } from "./services/summary";
-import { ProcessType, TimeFrame } from "./types/cli";
+import { TimeFrame } from "./types/cli";
 import { Transaction, TransactionType } from "./types/ledger_file";
 
-// first argument is ledger file
-const file_name = process.argv[2];
+import { Command } from "commander";
+const program = new Command();
 
-// second argument is process type
-const process_type: ProcessType = process.argv[3].toUpperCase() as ProcessType;
+program.name("ledger-cli").description("A simple ledger cli");
 
-const transactions: Transaction[] = getLedgerFileAsJson(file_name);
-
-switch (process_type) {
-  case ProcessType.HISTORY:
-    // thrird argument is max number of lines
-    const max_lines = process.argv[4] ? parseInt(process.argv[4]) : 20;
+// history command
+program
+  .command("history <file>")
+  .option("-l, --limit <limit>", "Limit number of lines", "20")
+  .description("Get history")
+  .action((file, options) => {
+    const max_lines = options.limit ? parseInt(options.limit) : 20;
+    const transactions: Transaction[] = getLedgerFileAsJson(file);
     console.log(getObjectAsJsonString(getHistory(transactions, max_lines)));
-    break;
-  case ProcessType.SUMMARY:
-    // third argument is TransactionType
-    const transaction_type: TransactionType =
-      process.argv[4].toUpperCase() as TransactionType;
-    // fourth argument is TimeFrame
-    const time_frame: TimeFrame = process.argv[5].toUpperCase() as TimeFrame;
-    // fifth argument is year
-    const year = process.argv[6]
-      ? parseInt(process.argv[6])
-      : new Date().getFullYear();
-    // sixth argument is month
-    const month = process.argv[7]
-      ? parseInt(process.argv[7])
-      : new Date().getMonth();
+  });
 
+// summary command
+program
+  .command("summary <file> <transaction_type>")
+  .option("-t, --time-frame <time_frame>", "Time frame", "MONTH")
+  .option("-y, --year <year>", "Year", new Date().getFullYear().toString())
+  .option("-m, --month <month>", "Month", new Date().getMonth().toString())
+  .description("Get summary")
+  .action((file, transaction_type, options) => {
+    const time_frame: TimeFrame = options.timeFrame.toUpperCase() as TimeFrame;
+    const year = options.year
+      ? parseInt(options.year)
+      : new Date().getFullYear();
+    const month = options.month
+      ? parseInt(options.month)
+      : new Date().getMonth();
+    const transactions: Transaction[] = getLedgerFileAsJson(file);
     console.log(
       getObjectAsJsonString(
-        getSummary(transactions, transaction_type, time_frame, year, month)
+        getSummary(
+          transactions,
+          transaction_type.toUpperCase() as TransactionType,
+          time_frame,
+          year,
+          month
+        )
       )
     );
-    break;
-  default:
-    console.log("Invalid process type");
-    break;
-}
+  });
+
+program.parse();
