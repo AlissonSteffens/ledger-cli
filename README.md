@@ -5,13 +5,15 @@ The main purpose of this client is to be able to talk to the ledger files from a
 It talks to the ledger files, but parses the output and returns it in a more usable format (JSON).
 
 ## Command line usage
-Use `npm start` to run the command line interface.
-You can use `npm start --help` to get a list of all the available commands.
+
+Use `ts-node src/index.ts` to run the command line interface.
+You can use `ts-node src/index.ts -h` to get a list of all the available commands.
 
 ### Examples
+
 ```
-npm start history transactions.ledger
-npm start summary transactions.ledger expense -t year -y 2023
+ts-node src/index.ts history transactions.ledger
+ts-node src/index.ts summary transactions.ledger expense -t year -y 2023
 ```
 
 ## What is Ledger?
@@ -21,6 +23,35 @@ Ledger is a powerful, double-entry accounting system that is accessed from the U
 Ledger uses text files for input. It reads the files and generates reports; there is no other database or stored state.
 
 Ledger is released under the BSD license.
+
+## Why Ledger?
+
+With the advancement of annotation tools and "second brains" like Obsidian, Notion, etc., I have been trying to organize myself with files in open formats, preferably PlainText, and migrating my resources that use proprietary formats.
+The NoBoilerPlate explains in [this video](https://www.youtube.com/watch?v=WgV6M1LyfNY&t=614s)(also available as text [here](https://github.com/0atman/noboilerplate/blob/main/scripts/34-Plain-Text-Team.md)), some reasons to avoid proprietary formats and use PlainText files.
+
+Currently, all my financial control is done through an Excel sheet, which is excellent when I'm on Windows or MacOS, but impossible to work with on Linux. Additionally, it forces me to pay for a license every month for a package of which I use practically only one of the tools.
+
+Although Ledger typically involves a program to generate reports from the data, the file format itself is humanly readable and easy to understand.
+
+Each entry (transaction) is composed of 3 lines:
+
+1.  The first line contains the date of the transaction and a description of it.
+2.  The second line contains the Asset that received the amount and the amount received.
+3.  The last line contains the Asset from which the money was withdrawn.
+
+Example:
+
+```
+## Income
+2023/10/16 Nevente
+    Assets:Banking:Mybank   $1950.00
+    Income:Nevente
+
+## Expense
+2023/10/01 Down the Street Hot Dog
+    Expenses:Personal:Food:HotDog   $33.00
+    Assets:Banking:Mybank
+```
 
 ## What is Ledger-CLI?
 

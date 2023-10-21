@@ -1,6 +1,6 @@
 import { get } from "https";
 import getObjectAsJsonString from "../../io/object_as_json_string";
-import { SummaryDTO } from "../../types/dtos";
+import { SummaryDTO } from "../../types/balance";
 import { Transaction, TransactionType } from "../../types/ledger_file";
 import {
   isExpenseFilter,

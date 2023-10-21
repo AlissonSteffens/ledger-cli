@@ -1,5 +1,6 @@
 import { getLedgerFileAsJson } from "./io/file_reader";
 import getObjectAsJsonString from "./io/object_as_json_string";
+import getHierarchyAssets from "./services/hierarchy";
 import getHistory from "./services/history";
 import { getSummary } from "./services/summary";
 import { TimeFrame } from "./types/cli";
@@ -48,6 +49,15 @@ program
         )
       )
     );
+  });
+
+// assets hierarchy command
+program
+  .command("assets-hierarchy <file>")
+  .description("Get assets hierarchylly, grouped by asset, alphabetically")
+  .action((file) => {
+    const transactions: Transaction[] = getLedgerFileAsJson(file);
+    console.log(getObjectAsJsonString(getHierarchyAssets(transactions)));
   });
 
 program.parse();

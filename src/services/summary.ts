@@ -1,6 +1,6 @@
 import getObjectAsJsonString from "../io/object_as_json_string";
 import { TimeFrame } from "../types/cli";
-import { MonthSummaryDTO, SummaryDTO, YearSummaryDTO } from "../types/dtos";
+import { MonthSummaryDTO, SummaryDTO, YearSummaryDTO } from "../types/balance";
 import { Transaction, TransactionType } from "../types/ledger_file";
 import {
   getExpenseAccGroupedByAsset,
