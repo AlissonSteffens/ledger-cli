@@ -27,7 +27,7 @@ Ledger is released under the BSD license.
 ## Why Ledger?
 
 With the advancement of annotation tools and "second brains" like Obsidian, Notion, etc., I have been trying to organize myself with files in open formats, preferably PlainText, and migrating my resources that use proprietary formats.
-The NoBoilerPlate explains in [this video](https://www.youtube.com/watch?v=WgV6M1LyfNY&t=614s)(also available as text [here](https://github.com/0atman/noboilerplate/blob/main/scripts/34-Plain-Text-Team.md)), some reasons to avoid proprietary formats and use PlainText files.
+The NoBoilerPlate explains in [this video](https://www.youtube.com/watch?v=WgV6M1LyfNY)(also available as text [here](https://github.com/0atman/noboilerplate/blob/main/scripts/34-Plain-Text-Team.md)), some reasons to avoid proprietary formats and use PlainText files.
 
 Currently, all my financial control is done through an Excel sheet, which is excellent when I'm on Windows or MacOS, but impossible to work with on Linux. Additionally, it forces me to pay for a license every month for a package of which I use practically only one of the tools.
 
